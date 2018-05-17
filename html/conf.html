@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<script src="../js/htmljs/jquery.min.js"></script>
+		<!--<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />-->
+		<style>
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="home.html"></a>
+			<h1 class="mui-title">文件扫描</h1>
+		</header>
+		
+		<div class="mui-content">
+			<button id='showUserPicker' class="mui-btn mui-btn-block" type='button'>请选择</button>
+			<button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="seacher()">扫描</button>
+		</div>
+		
+		
+		
+		
+		<script src="../js/mui.min.js"></script>
+		<!--<script src="../js/mui.picker.min.js"></script>-->
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script src="../js/htmljs/utils.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+		 	var picker = new mui.PopPicker();
+		 	var showUserPickerButton = document.getElementById('showUserPicker');
+			mui.ajax(reapi()+'/DisksMobile',
+				{
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				success:function(data){
+						picker.setData(data); 
+						showUserPickerButton.addEventListener('tap', function(event) {
+							picker.show(function(items) {
+								showUserPicker.innerText = JSON.stringify(items[0].text);
+								showUserPickerButton.value=JSON.stringify(items[0].value);
+							});
+					}, false);
+				}
+			})
+			
+			function seacher(){
+				var showUserPickerButton=$("#showUserPicker");
+				showUserPickerButton.attr("disabled","disabled");
+				var dir=showUserPickerButton.val();
+				if(dir!=0){
+				$.ajax({
+					type:'GET',
+					data:{
+						"dir":dir
+					},
+					dataType: "json",
+					url:reapi()+"/init",
+					success:function(data){
+						showUserPickerButton.removeAttr("disabled");
+						mui.alert("已添加"+data+"条视频!");
+					},
+					error:function(){
+	                    showalert("添加磁盘文件失败");
+					}
+				})
+			}
+		}
+		</script>
+	</body>
+
+</html>

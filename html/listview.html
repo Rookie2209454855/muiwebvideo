@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<script src="../js/htmljs/jquery.min.js"></script>
+		<script src="../js/htmljs/jquery.tmpl.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="home.html"></a>
+			<h1 class="mui-title">视频列表</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="videLink">
+				
+			</ul>
+		</div>
+		
+		<!--分页插件-->
+		<div class="mui-table-view-cell" id="pages">
+		</div>
+		
+		<script src="../js/mui.min.js"></script>
+		<script>
+			mui.init();
+		</script>
+		<script id="videLinkTemplate" type="text/x-jquery-tmpl">
+		{{each(i,item) links}}
+			<li class="mui-table-view-cell">
+				<div class="mui-slider-right mui-disabled">
+					<a class="mui-btn mui-btn-green mui-icon mui-icon-videocam" href="video.html?id={{= item.id}}"></a>
+					<a class="mui-btn mui-btn-red mui-icon mui-icon-trash"  onclick="delVideo(this,{{= item.id}});" ></a>
+				</div>
+				<div class="mui-slider-handle">
+					<div class="mui-table-cell">
+						{{= item.name}}
+					</div>
+				</div>
+			</li>
+		{{/each}}
+		</script>
+		<script src="../js/htmljs/utils.js"></script>
+		<script src="../js/htmljs/listview.js"></script>
+	</body>
+
+</html>
