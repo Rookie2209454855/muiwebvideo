@@ -49,7 +49,7 @@ function showalert(msg) {
 
 
 function reapi(){
-	return "http://127.0.0.1:8080/ssm";
+	return "http://192.168.16.106:8080/ssm";
 }
 
 /**加载分页插件**/
